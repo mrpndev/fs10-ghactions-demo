@@ -4,5 +4,5 @@ import { expect, test } from "vitest"
 
 test("render app", () => {
 	render(<App/>)
-	expect(screen.getByRole("heading", { name: /get started/i })).toBeInTheDocument();
+	expect(screen.getByRole("heading", { name: /get startedd/i })).toBeInTheDocument();
 })
