@@ -1,0 +1,44 @@
+name: GitHub Actions Demo
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: install dependencies
+        run: npm install
+
+      - name: run tests
+        run: npm test
+
+      - name: build front end
+        run: npm run build
+
+      - name: configure GH Pages
+        uses: actions/configure-pages@v5
+
+      - name: upload front end build
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      - name: deploy
+        uses: actions/deploy-pages@v4
